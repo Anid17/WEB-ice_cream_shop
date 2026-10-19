@@ -1,0 +1,44 @@
+<h1 class="page-title mb-4">Reviews</h1>
+
+<div class="row g-4">
+  <div class="col-lg-7">
+    <div class="card p-3 mb-3">
+      <div class="d-flex justify-content-between">
+        <strong>Vanilla Bean</strong>
+        <span>&#9733;&#9733;&#9733;&#9733;&#9733;</span>
+      </div>
+      <p class="mb-0">The best vanilla I have ever had. <span class="text-muted">&mdash; Amar</span></p>
+    </div>
+    <div class="card p-3">
+      <div class="d-flex justify-content-between">
+        <strong>Strawberry Sorbet</strong>
+        <span>&#9733;&#9733;&#9733;&#9733;&#9734;</span>
+      </div>
+      <p class="mb-0">Very fresh, a bit too sweet. <span class="text-muted">&mdash; Lejla</span></p>
+    </div>
+  </div>
+  <div class="col-lg-5">
+    <div class="card p-4">
+      <h5>Write a review</h5>
+      <form>
+        <div class="mb-3">
+          <label for="reviewProduct" class="form-label">Product</label>
+          <select class="form-select" id="reviewProduct">
+            <option>Vanilla Bean</option>
+            <option>Strawberry Sorbet</option>
+            <option>Chocolate Fudge</option>
+          </select>
+        </div>
+        <div class="mb-3">
+          <label for="reviewRating" class="form-label">Rating (1-5)</label>
+          <input type="number" class="form-control" id="reviewRating" min="1" max="5" value="5">
+        </div>
+        <div class="mb-3">
+          <label for="reviewComment" class="form-label">Comment</label>
+          <textarea class="form-control" id="reviewComment" rows="3"></textarea>
+        </div>
+        <button type="submit" class="btn btn-specijal w-100">Submit review</button>
+      </form>
+    </div>
+  </div>
+</div>
