@@ -1,0 +1,16 @@
+# Secrets
+backend/config/config.php
+
+# Logs
+backend/logs/*
+!backend/logs/.gitkeep
+
+# Dependencies
+vendor/
+node_modules/
+
+# OS / editor
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/
