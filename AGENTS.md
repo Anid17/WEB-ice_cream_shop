@@ -34,7 +34,7 @@ Entities: users, categories, products, product_categories, orders, order_items, 
 ## Rules for AI assistants
 - Do not add new libraries or frameworks without asking me first.
 - Do not change the database schema without asking me first.
-- Never put passwords, keys or secrets in code; they belong in backend/config/config.php, which is not committed. Update config.example.php instead.
+- Never put passwords, keys or secrets in code; they belong in backend/config/config.php.
 - Do not edit files in backend/logs/.
-- Do only what the milestone asks. Do not add features early (for example the external API before Milestone 3).
+- Do only what the milestone asks. Do not add features early
 - Make small changes and explain what you changed and why.  
