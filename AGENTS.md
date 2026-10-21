@@ -37,4 +37,4 @@ Entities: users, categories, products, product_categories, orders, order_items, 
 - Never put passwords, keys or secrets in code; they belong in backend/config/config.php, which is not committed. Update config.example.php instead.
 - Do not edit files in backend/logs/.
 - Do only what the milestone asks. Do not add features early (for example the external API before Milestone 3).
-- Make small changes and explain what you changed and why.
+- Make small changes and explain what you changed and why.  
