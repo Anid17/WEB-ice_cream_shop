@@ -1,0 +1,56 @@
+:root {
+  --specijal-orange: #ff8a3d;
+  --specijal-orange-dark: #e5701f;
+  --specijal-cream: #fff8f0;
+  --specijal-blue: #cdeafe;
+  --specijal-brown: #5a3e36;
+}
+
+body {
+  background-color: var(--specijal-cream);
+  color: var(--specijal-brown);
+  font-family: "Segoe UI", system-ui, sans-serif;
+}
+
+.navbar-specijal {
+  background-color: var(--specijal-orange);
+}
+.navbar-specijal .navbar-brand,
+.navbar-specijal .nav-link {
+  color: #fff;
+}
+.navbar-specijal .nav-link:hover,
+.navbar-specijal .nav-link.active {
+  color: var(--specijal-brown);
+  font-weight: 600;
+}
+
+.btn-specijal {
+  background-color: var(--specijal-orange);
+  border-color: var(--specijal-orange);
+  color: #fff;
+}
+.btn-specijal:hover {
+  background-color: var(--specijal-orange-dark);
+  border-color: var(--specijal-orange-dark);
+  color: #fff;
+}
+
+.card {
+  border: none;
+  border-radius: 1rem;
+  box-shadow: 0 4px 12px rgba(90, 62, 54, 0.08);
+}
+
+.weather-card {
+  background: linear-gradient(135deg, var(--specijal-blue), #fff);
+}
+
+.page-title {
+  color: var(--specijal-orange-dark);
+  font-weight: 700;
+}
+
+a {
+  color: var(--specijal-orange-dark);
+}
