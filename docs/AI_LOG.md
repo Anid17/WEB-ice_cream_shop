@@ -49,3 +49,27 @@
    The finding that "page-title" has no "specijal" prefix is valid, and I will
    decide whether to rename it. The missing name attributes on the inputs are
    a small valid point that I will handle when the forms are connected.
+
+
+
+   ## Milestone 2
+
+   ### Tools and tasks
+   - **Claude (claude.ai chat):** generated the first version of the database schema 
+   Prompt : I need help with database for my project
+   Result : Claude generated the databases and created the bcrypt password hashes which are beyond the lab and requirements
+
+   -**Claude (claude.ai chat):** gave me the terminal command to move the backend folders
+   Prompt : What is the command to move files in terminal
+   Result : git mv
+
+   ### Where the AI was wrong
+   (Claude) It named the DAO files with the Dao ending, but my files were named DAO. I
+   noticed it in git status and renamed them, because file names must match the class
+   names.
+
+   (Claude) In Milestone 1 it gave me the folders backend/routes, services and dao,
+   but Lab 03 uses backend/rest/... . I noticed it when I read the lab and moved
+   the folders with git mv.
+
+   (Claude) In Milestone 3, there is no need for hashes, Claude created them either way.

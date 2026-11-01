@@ -12,7 +12,8 @@ Entities: users, categories, products, product_categories, orders, order_items, 
 
 ## Folder structure
 - frontend/: css/, js/, views/ (one HTML file per view), assets/
-- backend/: routes/, services/, dao/, middleware/, config/, logs/
+- backend/: config/, middleware/, logs/, rest/ (routes/, services/, dao/)
+- database/: specijal.sql (schema and sample data)
 - docs/: AI_LOG.md, erd.png and other documentation
 
 ## Frontend rules
@@ -38,3 +39,10 @@ Entities: users, categories, products, product_categories, orders, order_items, 
 - Do not edit files in backend/logs/.
 - Do only what the milestone asks. Do not add features early
 - Make small changes and explain what you changed and why.  
+
+## Database and DAO rules
+- Every table has an id INT AUTO_INCREMENT primary key.
+- Each DAO extends BaseDao and lists its writable columns (not id or created_at).
+- SQL only inside DAO classes, always with PDO prepared statements.
+- UserDao does not select the password hash except in get_by_email() for login.
+- Database settings come from backend/config/config.php (not committed).
