@@ -39,3 +39,13 @@ Planned: weather data on the dashboard, used to suggest flavors.
 - `backend/`: routes, services, dao, middleware, config, logs
 - `docs/`: ERD and AI log
 
+
+## Database setup
+1. Start MySQL in XAMPP.
+2. Import `database/specijal.sql` in phpMyAdmin (it creates the `specijal` database).
+3. Copy `backend/config/config.example.php` to `backend/config/config.php` and set your MySQL password if needed.
+4. Test the DAO layer: `cd backend` then `php rest/dao/test.php`.
+
+## Test accounts (sample data)
+- Admin: admin@specijal.ba / Admin123!
+- Customer: customer@example.com / Customer123!
