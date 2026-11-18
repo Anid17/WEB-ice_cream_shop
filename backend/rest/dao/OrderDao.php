@@ -23,4 +23,13 @@ class OrderDao extends BaseDao
             ['status' => $status]
         );
     }
+
+    /** Add $delta (can be negative) to the order total. */
+    public function change_total($id, $delta)
+    {
+        return $this->execute(
+            "UPDATE orders SET total_amount = total_amount + :delta WHERE id = :id",
+            ["delta" => $delta, "id" => $id]
+        );
+    }
 }

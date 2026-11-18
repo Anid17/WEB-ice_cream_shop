@@ -20,7 +20,7 @@ class ReviewDao extends BaseDao
         );
     }
 
-    /** Average rating per product . */
+    /** Average rating per product (products without reviews get NULL). */
     public function average_per_product()
     {
         return $this->query(
@@ -29,6 +29,14 @@ class ReviewDao extends BaseDao
              LEFT JOIN reviews r ON r.product_id = p.id
              GROUP BY p.id, p.name
              ORDER BY average_rating DESC, p.name"
+        );
+    }
+
+    public function get_by_user_and_product($user_id, $product_id)
+    {
+        return $this->query_unique(
+            "SELECT * FROM reviews WHERE user_id = :user_id AND product_id = :product_id",
+            ["user_id" => $user_id, "product_id" => $product_id]
         );
     }
 }

@@ -8,7 +8,7 @@ class CategoryDao extends BaseDao
         parent::__construct('categories', ['name']);
     }
 
-    /** Number of products in each category. */
+    /** Number of products in each category (LEFT JOIN keeps empty categories with 0). */
     public function count_products()
     {
         return $this->query(
@@ -18,5 +18,10 @@ class CategoryDao extends BaseDao
              GROUP BY c.id, c.name
              ORDER BY c.id"
         );
+    }
+
+    public function get_by_name($name)
+    {
+        return $this->query_unique("SELECT * FROM categories WHERE name = :name", ["name" => $name]);
     }
 }
