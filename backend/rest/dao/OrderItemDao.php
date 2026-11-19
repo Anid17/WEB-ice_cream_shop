@@ -20,4 +20,13 @@ class OrderItemDao extends BaseDao
             ['order_id' => $order_id]
         );
     }
+
+    public function count_by_product($product_id)
+    {
+        $row = $this->query_unique(
+            "SELECT COUNT(*) AS total FROM order_items WHERE product_id = :product_id",
+            ["product_id" => $product_id]
+        );
+        return (int) $row["total"];
+    }
 }

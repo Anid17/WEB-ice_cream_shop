@@ -1,31 +1,38 @@
 <?php
 require_once __DIR__ . '/BaseDao.php';
 
-class OrderItemDao extends BaseDao
+class ProductCategoryDao extends BaseDao
 {
     public function __construct()
     {
-        parent::__construct('order_items', ['order_id', 'product_id', 'quantity', 'unit_price']);
+        parent::__construct('product_categories', ['product_id', 'category_id']);
     }
 
-    /** Items of one order, with the product name. */
-    public function get_by_order($order_id)
+    public function get_by_product($product_id)
     {
         return $this->query(
-            "SELECT oi.*, p.name AS product_name
-             FROM order_items oi
-             JOIN products p ON p.id = oi.product_id
-             WHERE oi.order_id = :order_id
-             ORDER BY oi.id",
-            ['order_id' => $order_id]
+            "SELECT pc.*, c.name AS category_name
+             FROM product_categories pc
+             JOIN categories c ON c.id = pc.category_id
+             WHERE pc.product_id = :product_id
+             ORDER BY c.name",
+            ['product_id' => $product_id]
         );
     }
 
-    public function count_by_product($product_id)
+    public function get_by_pair($product_id, $category_id)
+    {
+        return $this->query_unique(
+            "SELECT * FROM product_categories WHERE product_id = :product_id AND category_id = :category_id",
+            ["product_id" => $product_id, "category_id" => $category_id]
+        );
+    }
+
+    public function count_by_category($category_id)
     {
         $row = $this->query_unique(
-            "SELECT COUNT(*) AS total FROM order_items WHERE product_id = :product_id",
-            ["product_id" => $product_id]
+            "SELECT COUNT(*) AS total FROM product_categories WHERE category_id = :category_id",
+            ["category_id" => $category_id]
         );
         return (int) $row["total"];
     }

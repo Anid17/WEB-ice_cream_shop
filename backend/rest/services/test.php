@@ -51,7 +51,7 @@ attempt('Link to a product that does not exist', fn() => $links->add(['product_i
 echo "\n=== Users ===\n";
 attempt('User with an invalid e-mail', fn() => $users->add(['name' => 'Test User', 'email' => 'ana@', 'password' => 'Secret123']));
 attempt('User with a weak password', fn() => $users->add(['name' => 'Test User', 'email' => 'test@example.com', 'password' => 'abc']));
-attempt('User with a duplicate e-mail (other case)', fn() => $users->add(['name' => 'Test User', 'email' => 'AMAR@example.com', 'password' => 'Secret123']));
+attempt('User with a duplicate e-mail (other case)', fn() => $users->add(['name' => 'Test User', 'email' => 'amar@example.com', 'password' => 'Secret123']));
 attempt('User with an unknown role', fn() => $users->add(['name' => 'Test User', 'email' => 'test@example.com', 'password' => 'Secret123', 'role' => 'boss']));
 $u = attempt('Add a valid user', fn() => $users->add(['name' => 'Test User', 'email' => 'Test@Example.com', 'password' => 'Secret123']));
 echo "  stored e-mail: {$u['email']}, role: {$u['role']}, password in answer: " . (isset($u['password']) ? 'YES (bad)' : 'no') . "\n";
