@@ -73,3 +73,27 @@
    the folders with git mv.
 
    (Claude) In Milestone 3, there is no need for hashes, Claude created them either way.
+
+
+   ## Milestone 3
+
+
+   ### Tools and tasks
+   **Claude (claude.ai chat):** gave me all terminal commands, Git commands
+   Prompt: "I need to terminal commands"
+   Result: Claude send all the commands I need each time for terminal
+
+   **Claude (claude.ai chat):** gave me tests for Postman
+   Prompt: "About the postman and testing, I wanna test everything at the end of the milestone"
+   Result: Claude generated all the tests for Postman
+
+   **Claude (claude.ai chat):** suggested the weather API : Open-Meteo and wrote the features
+   Prompt: "lets use the weather API, whatever is easier, I just want to use different type of message for each temperature"
+   Result: Claude generated the code for weather API and explained its use
+
+   ### Where the AI was wrong
+   (Claude) The service test used random e-mail :"AMAR@example.com" for the duplicate check, but my sample data had other e-mails, so the line printed OK and created a user. I noticed the wrong "OK" in the output, and the test was fixed to use my data.
+
+   (Claude) The Git instructions used a plain "git push", which failed with "no upstream branch", because milestone3 was not linked to GitHub yet. I used git push --set-upstream origin milestone3.
+   
+
