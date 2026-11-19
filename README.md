@@ -49,3 +49,19 @@ Planned: weather data on the dashboard, used to suggest flavors.
 ## Test accounts (sample data)
 - Admin: admin@specijal.ba / Admin123!
 - Customer: customer@example.com / Customer123!
+
+
+**Status:** Milestone 3
+
+## Running the API
+1. In the `backend` folder run `composer install`.
+2. Start Apache and MySQL in XAMPP, and import `database/specijal.sql`.
+3. Copy `backend/config/config.example.php` to `backend/config/config.php`.
+4. The API runs at `http://localhost/WEB-ice_cream_shop/backend/`.
+5. Swagger documentation: `http://localhost/WEB-ice_cream_shop/backend/public/v1/docs/`
+
+## Endpoints
+`categories`, `products`, `product-categories`, `users`, `orders`, `order-items` and `reviews` each have GET (list and one), POST, PUT and DELETE. Extras: `GET /products?search=` and `?category_id=`, `GET /products/{id}/reviews`, `GET /orders?user_id=`, `GET /orders/{id}/items`.
+
+## External API
+The dashboard weather tip comes from `GET /weather` (Open-Meteo, no API key). The tip depends on the temperature. If the API is down, the endpoint answers 503 and the rest of the application keeps working.

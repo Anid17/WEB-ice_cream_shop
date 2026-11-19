@@ -8,6 +8,7 @@ require_once __DIR__ . '/rest/services/UserService.php';
 require_once __DIR__ . '/rest/services/OrderService.php';
 require_once __DIR__ . '/rest/services/OrderItemService.php';
 require_once __DIR__ . '/rest/services/ReviewService.php';
+require_once __DIR__ . '/rest/services/WeatherService.php';
 
 // Register every service ONCE - every route can then call Flight::product_service()
 Flight::register('category_service', 'CategoryService');
@@ -17,6 +18,7 @@ Flight::register('user_service', 'UserService');
 Flight::register('order_service', 'OrderService');
 Flight::register('order_item_service', 'OrderItemService');
 Flight::register('review_service', 'ReviewService');
+Flight::register('weather_service', 'WeatherService');
 
 /* ONE place that turns every exception into a JSON answer */
 Flight::map('error', function (Throwable $e) {
@@ -57,5 +59,6 @@ require_once __DIR__ . '/rest/routes/UserRoutes.php';
 require_once __DIR__ . '/rest/routes/OrderRoutes.php';
 require_once __DIR__ . '/rest/routes/OrderItemRoutes.php';
 require_once __DIR__ . '/rest/routes/ReviewRoutes.php';
+require_once __DIR__ . '/rest/routes/WeatherRoutes.php';
 
 Flight::start();                                      // always the LAST line

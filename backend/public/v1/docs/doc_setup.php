@@ -162,4 +162,15 @@ use OpenApi\Attributes as OA;
         new OA\Property(property: 'user_name', type: 'string', example: 'Amar Hodzic')
     ]
 )]
+#[OA\Schema(
+    schema: 'Weather',
+    properties: [
+        new OA\Property(property: 'city', type: 'string', example: 'Zenica'),
+        new OA\Property(property: 'temperature', type: 'number', example: 24.3),
+        new OA\Property(property: 'weather_code', type: 'integer', example: 2),
+        new OA\Property(property: 'description', type: 'string', example: 'Partly cloudy'),
+        new OA\Property(property: 'category', type: 'string', enum: ['cold', 'mild', 'warm', 'hot'], example: 'warm'),
+        new OA\Property(property: 'message', type: 'string', example: 'A flavor tip for this temperature')
+    ]
+)]
 class OpenApiSpec {}

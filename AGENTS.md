@@ -12,7 +12,7 @@ Entities: users, categories, products, product_categories, orders, order_items, 
 
 ## Folder structure
 - frontend/: css/, js/, views/ (one HTML file per view), assets/
-- backend/: config/, middleware/, logs/, rest/ (routes/, services/, dao/)
+- backend/: index.php, .htaccess, config/, middleware/, logs/, utils/, rest/ (routes/, services/, dao/), public/v1/docs/ (Swagger)
 - database/: specijal.sql (schema and sample data)
 - docs/: AI_LOG.md, erd.png and other documentation
 
@@ -27,6 +27,13 @@ Entities: users, categories, products, product_categories, orders, order_items, 
 - Only services call DAO classes. Routes never call DAO classes directly.
 - All SQL uses PDO prepared statements.
 - Routes return JSON with correct HTTP status codes.
+
+## Backend rules (Milestone 3)
+- Routes only read the request, call a service and return JSON. No SQL, no business rules, no try/catch.
+- Services hold the rules and are the only layer that calls DAOs. A broken rule throws ValidationException (400) or NotFoundException (404); an external API failure throws ExternalServiceException (503).
+- Errors are turned into JSON by the one error handler in index.php.
+- When a route changes, update its Paths class in public/v1/docs/paths/ in the same commit.
+- The external API (Open-Meteo weather) is called only from WeatherService. Its settings are in backend/config/config.php.
 
 ## Conventions
 - PHP classes: PascalCase (UserService, UserDao). Files are named after the class.
