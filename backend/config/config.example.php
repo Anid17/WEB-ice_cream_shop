@@ -6,10 +6,19 @@ class Config
     public static function DB_NAME()     { return self::get_env('DB_NAME', 'specijal'); }
     public static function DB_USER()     { return self::get_env('DB_USER', 'root'); }
     public static function DB_PASSWORD() { return self::get_env('DB_PASSWORD', ''); }
- 
+
+    // External API: Open-Meteo weather (free, it needs no API key).
+    // If you switch to an API with a key, add it here, for example WEATHER_API_KEY.
+    public static function WEATHER_API_URL()   { return self::get_env('WEATHER_API_URL', 'https://api.open-meteo.com/v1/forecast'); }
+    public static function WEATHER_CITY()      { return self::get_env('WEATHER_CITY', 'Zenica'); }
+    public static function WEATHER_LATITUDE()  { return self::get_env('WEATHER_LATITUDE', '44.2034'); }
+    public static function WEATHER_LONGITUDE() { return self::get_env('WEATHER_LONGITUDE', '17.9077'); }
+    public static function WEATHER_TIMEOUT()   { return self::get_env('WEATHER_TIMEOUT', 5); }   // seconds
+
+    // Environment variables (set on the server) win over the default values above.
     public static function get_env($name, $default)
     {
         $value = getenv($name);
         return ($value !== false && trim($value) !== '') ? $value : $default;
     }
-} 
+}

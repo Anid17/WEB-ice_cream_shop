@@ -27,4 +27,13 @@ class ProductDao extends BaseDao
             ['name' => '%' . $text . '%', 'description' => '%' . $text . '%']
         );
     }
+
+    /** Add $delta (can be negative) to the stock. Changes 0 rows if the stock would go below 0. */
+    public function change_stock($id, $delta)
+    {
+        return $this->execute(
+            "UPDATE products SET stock = stock + :delta WHERE id = :id AND stock + :delta2 >= 0",
+            ["delta" => $delta, "delta2" => $delta, "id" => $id]
+        );
+    }
 }

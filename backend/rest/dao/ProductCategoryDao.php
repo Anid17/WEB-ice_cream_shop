@@ -19,4 +19,21 @@ class ProductCategoryDao extends BaseDao
             ['product_id' => $product_id]
         );
     }
+
+    public function get_by_pair($product_id, $category_id)
+    {
+        return $this->query_unique(
+            "SELECT * FROM product_categories WHERE product_id = :product_id AND category_id = :category_id",
+            ["product_id" => $product_id, "category_id" => $category_id]
+        );
+    }
+
+    public function count_by_category($category_id)
+    {
+        $row = $this->query_unique(
+            "SELECT COUNT(*) AS total FROM product_categories WHERE category_id = :category_id",
+            ["category_id" => $category_id]
+        );
+        return (int) $row["total"];
+    }
 }
