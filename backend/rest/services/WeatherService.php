@@ -1,6 +1,7 @@
 <?php
 require_once __DIR__ . '/../../config/config.php';
 require_once __DIR__ . '/../../utils/exceptions.php';
+require_once __DIR__ . '/../../utils/Logger.php';
 
 /**
  * External API service: current weather from Open-Meteo.
@@ -9,11 +10,14 @@ require_once __DIR__ . '/../../utils/exceptions.php';
  */
 class WeatherService
 {
+    /* ------------------------------------------------------------------
+     * EDIT HERE: the message shown for each temperature range.
+     * ------------------------------------------------------------------ */
     const MESSAGES = [
-        'cold' => 'Message for below 10°C (try out camomile, mint, or black tea flavors)',
-        'mild' => 'Message for 10°C to 19°C (try out vanilla, strawberry, or cherry milkshake)',
-        'warm' => 'Message for 20°C to 27°C (always a good time for ice cream)',
-        'hot'  => 'Message for 28°C and above (ICE CREAM TIME!)',
+        'cold' => 'Message for below 10°C (place for optional message 1)',
+        'mild' => 'Message for 10°C to 19°C (place for optional message 2)',
+        'warm' => 'Message for 20°C to 27°C (place for optional message 3)',
+        'hot'  => 'Message for 28°C and above (place for optional message 4)',
     ];
 
     /** Short names for the WMO weather codes that Open-Meteo returns. */
@@ -39,6 +43,7 @@ class WeatherService
         }
 
         $category = $this->category($temperature);
+        Logger::info('EXTERNAL API weather ok city=' . Config::WEATHER_CITY() . " temperature=$temperature");
         return [
             'city' => Config::WEATHER_CITY(),
             'temperature' => round((float) $temperature, 1),
@@ -107,7 +112,7 @@ class WeatherService
     /** Log the technical reason, give the user a friendly message (HTTP 503). */
     private function fail($reason)
     {
-        error_log('[WeatherService] ' . $reason);
+        Logger::error('EXTERNAL API weather failed: ' . $reason);
         throw new ExternalServiceException('Weather information is not available right now. Please try again later.');
     }
 }

@@ -1,5 +1,9 @@
-# Send every request that is not an existing file/folder to index.php (FlightPHP)
+# Apache sometimes does not pass the Authorization header to PHP - this passes it on
 RewriteEngine On
+RewriteCond %{HTTP:Authorization} .
+RewriteRule .* - [E=HTTP_AUTHORIZATION:%{HTTP:Authorization}]
+
+# Send every request that is not an existing file/folder to index.php (FlightPHP)
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{REQUEST_FILENAME} !-d
 RewriteRule ^(.*)$ index.php [QSA,L]
