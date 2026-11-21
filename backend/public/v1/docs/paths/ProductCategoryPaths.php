@@ -8,7 +8,8 @@ class ProductCategoryPaths
         tags: ['product-categories'],
         summary: 'List all product category links',
         responses: [
-            new OA\Response(response: 200, description: 'List of product category links', content: new OA\JsonContent(type: 'array', items: new OA\Items(ref: '#/components/schemas/ProductCategory')))
+            new OA\Response(response: 200, description: 'List of product category links', content: new OA\JsonContent(type: 'array', items: new OA\Items(ref: '#/components/schemas/ProductCategory'))),
+            new OA\Response(response: 401, description: 'Missing, invalid or expired token', content: new OA\JsonContent(ref: '#/components/schemas/Error'))
         ]
     )]
     public function getProductCategories() {}
@@ -22,6 +23,7 @@ class ProductCategoryPaths
         ],
         responses: [
             new OA\Response(response: 200, description: 'The product category link', content: new OA\JsonContent(ref: '#/components/schemas/ProductCategory')),
+            new OA\Response(response: 401, description: 'Missing, invalid or expired token', content: new OA\JsonContent(ref: '#/components/schemas/Error')),
             new OA\Response(response: 404, description: 'Product category link not found', content: new OA\JsonContent(ref: '#/components/schemas/Error'))
         ]
     )]
@@ -34,7 +36,9 @@ class ProductCategoryPaths
         requestBody: new OA\RequestBody(required: true, content: new OA\JsonContent(ref: '#/components/schemas/ProductCategoryInput')),
         responses: [
             new OA\Response(response: 201, description: 'The new product category link', content: new OA\JsonContent(ref: '#/components/schemas/ProductCategory')),
-            new OA\Response(response: 400, description: 'Invalid input or a broken rule', content: new OA\JsonContent(ref: '#/components/schemas/Error'))
+            new OA\Response(response: 400, description: 'Invalid input or a broken rule', content: new OA\JsonContent(ref: '#/components/schemas/Error')),
+            new OA\Response(response: 401, description: 'Missing, invalid or expired token', content: new OA\JsonContent(ref: '#/components/schemas/Error')),
+            new OA\Response(response: 403, description: 'Admins only', content: new OA\JsonContent(ref: '#/components/schemas/Error'))
         ]
     )]
     public function postProductCategories() {}
@@ -50,6 +54,8 @@ class ProductCategoryPaths
         responses: [
             new OA\Response(response: 200, description: 'The updated product category link', content: new OA\JsonContent(ref: '#/components/schemas/ProductCategory')),
             new OA\Response(response: 400, description: 'Invalid input or a broken rule', content: new OA\JsonContent(ref: '#/components/schemas/Error')),
+            new OA\Response(response: 401, description: 'Missing, invalid or expired token', content: new OA\JsonContent(ref: '#/components/schemas/Error')),
+            new OA\Response(response: 403, description: 'Admins only', content: new OA\JsonContent(ref: '#/components/schemas/Error')),
             new OA\Response(response: 404, description: 'Product category link not found', content: new OA\JsonContent(ref: '#/components/schemas/Error'))
         ]
     )]
@@ -64,6 +70,8 @@ class ProductCategoryPaths
         ],
         responses: [
             new OA\Response(response: 200, description: 'Product category link deleted', content: new OA\JsonContent(ref: '#/components/schemas/Message')),
+            new OA\Response(response: 401, description: 'Missing, invalid or expired token', content: new OA\JsonContent(ref: '#/components/schemas/Error')),
+            new OA\Response(response: 403, description: 'Admins only', content: new OA\JsonContent(ref: '#/components/schemas/Error')),
             new OA\Response(response: 404, description: 'Product category link not found', content: new OA\JsonContent(ref: '#/components/schemas/Error'))
         ]
     )]

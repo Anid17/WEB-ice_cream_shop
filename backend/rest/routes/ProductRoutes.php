@@ -20,17 +20,17 @@ Flight::route('GET /products/@id:[0-9]+', function ($id) {
 Flight::route('POST /products', function () {
     $data = Flight::request()->data->getData();
     Flight::json(Flight::product_service()->add($data), 201);
-});
+})->addMiddleware(new RoleMiddleware([Roles::ADMIN]));
 
 Flight::route('PUT /products/@id:[0-9]+', function ($id) {
     $data = Flight::request()->data->getData();
     Flight::json(Flight::product_service()->update($data, $id));
-});
+})->addMiddleware(new RoleMiddleware([Roles::ADMIN]));
 
 Flight::route('DELETE /products/@id:[0-9]+', function ($id) {
     Flight::product_service()->delete($id);
     Flight::json(['message' => 'Product deleted.']);
-});
+})->addMiddleware(new RoleMiddleware([Roles::ADMIN]));
 
 /** The reviews of one product */
 Flight::route('GET /products/@id:[0-9]+/reviews', function ($id) {

@@ -9,6 +9,7 @@ class WeatherPaths
         summary: 'Current weather and a flavor tip (external API: Open-Meteo)',
         responses: [
             new OA\Response(response: 200, description: 'The current weather', content: new OA\JsonContent(ref: '#/components/schemas/Weather')),
+            new OA\Response(response: 401, description: 'Missing, invalid or expired token', content: new OA\JsonContent(ref: '#/components/schemas/Error')),
             new OA\Response(response: 503, description: 'The weather API is not available', content: new OA\JsonContent(ref: '#/components/schemas/Error'))
         ]
     )]
