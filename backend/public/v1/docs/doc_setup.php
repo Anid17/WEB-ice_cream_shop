@@ -1,4 +1,4 @@
-z<?php
+<?php
 use OpenApi\Attributes as OA;
 
 // General information, the security scheme and the reusable schemas of the Specijal API.

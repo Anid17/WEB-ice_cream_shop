@@ -10,15 +10,13 @@ require_once __DIR__ . '/../../utils/Logger.php';
  */
 class WeatherService
 {
-    /* ------------------------------------------------------------------
-     * EDIT HERE: the message shown for each temperature range.
-     * ------------------------------------------------------------------ */
+
     const MESSAGES = [
-        'cold' => 'Message for below 10°C (place for optional message 1)',
-        'mild' => 'Message for 10°C to 19°C (place for optional message 2)',
-        'warm' => 'Message for 20°C to 27°C (place for optional message 3)',
-        'hot'  => 'Message for 28°C and above (place for optional message 4)',
-    ];
+    'cold' => 'Cold day? Enjoy a cozy scoop of hot chocolate!',
+    'mild' => 'A lovely day for a classic vanilla scoop!',
+    'warm' => 'Warm weather calls for refreshing strawberry sorbet!',
+    'hot'  => 'Beat the heat with a refreshing fruity ice cream!',
+];
 
     /** Short names for the WMO weather codes that Open-Meteo returns. */
     const DESCRIPTIONS = [
