@@ -22,13 +22,6 @@ Entities: users, categories, products, product_categories, orders, order_items, 
 - Use Bootstrap 5 classes; avoid inline styles. Custom styles go in css/style.css.
 - Theme: orange (#ff8a3d), baby blue (#cdeafe), cream background. Custom classes use the prefix "specijal".
 
-## Frontend rules (Milestone 4)
-- Requests to the API go only through RestClient (utils/rest-client.js), called from the service files in frontend/services/. Views contain no AJAX code.
-- Every view ends with `<script>NameService.init();</script>`. app.js inserts views with jQuery .html(), so this script runs.
-- The JWT is stored in localStorage as "user_token" and sent as `Authorization: Bearer <token>`. A 401 sends the user to #login, a 403 shows a Toastr message.
-- Role-based UI uses the CSS classes guest-only, auth-only and admin-only (set in UserService.refreshNav). Hiding something in the UI is not security; the backend decides.
-- No hard-coded data in views: everything comes from the API.
-
 ## Backend rules
 - Requests go: route -> service -> DAO -> database.
 - Only services call DAO classes. Routes never call DAO classes directly.
@@ -42,15 +35,6 @@ Entities: users, categories, products, product_categories, orders, order_items, 
 - When a route changes, update its Paths class in public/v1/docs/paths/ in the same commit.
 - The external API (Open-Meteo weather) is called only from WeatherService. Its settings are in backend/config/config.php.
 
-## Backend rules (Milestone 4)
-- Public routes are only GET /, POST /auth/login and POST /auth/register. All other routes are in the protected group in index.php, where AuthMiddleware checks the token (401).
-- Roles are checked by RoleMiddleware on the route (403), compared with the constants in utils/Roles.php, never with typed strings. Ownership is checked in the service with check_owner() (403).
-- The user id and the role come from the token (Flight::get('user')), never from the request body. Registration always creates a customer.
-- Never read the Authorization header inside a route; AuthMiddleware does it.
-- Logging only through Logger::info() and Logger::error(). RequestLogMiddleware logs every request, ErrorMiddleware turns every exception into JSON without technical details and writes errors to error.log. Never log a password or a token.
-- The JWT secret (at least 32 characters) is in backend/config/config.php, which is not committed.
-
-
 ## Conventions
 - PHP classes: PascalCase (UserService, UserDao). Files are named after the class.
 - JavaScript and PHP variables: camelCase. Database tables and columns: snake_case.
@@ -60,6 +44,7 @@ Entities: users, categories, products, product_categories, orders, order_items, 
 - Do not change the database schema without asking me first.
 - Never put passwords, keys or secrets in code; they belong in backend/config/config.php.
 - Do not edit files in backend/logs/.
+- Do only what the milestone asks. Do not add features early
 - Make small changes and explain what you changed and why.  
 
 ## Database and DAO rules

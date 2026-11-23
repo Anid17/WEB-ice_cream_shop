@@ -14,7 +14,6 @@ class ProductPaths
         responses: [
             new OA\Response(response: 200, description: 'List of products', content: new OA\JsonContent(type: 'array', items: new OA\Items(ref: '#/components/schemas/Product'))),
             new OA\Response(response: 400, description: 'Invalid search or category_id', content: new OA\JsonContent(ref: '#/components/schemas/Error')),
-            new OA\Response(response: 401, description: 'Missing, invalid or expired token', content: new OA\JsonContent(ref: '#/components/schemas/Error')),
             new OA\Response(response: 404, description: 'Category not found', content: new OA\JsonContent(ref: '#/components/schemas/Error'))
         ]
     )]
@@ -29,7 +28,6 @@ class ProductPaths
         ],
         responses: [
             new OA\Response(response: 200, description: 'The product', content: new OA\JsonContent(ref: '#/components/schemas/Product')),
-            new OA\Response(response: 401, description: 'Missing, invalid or expired token', content: new OA\JsonContent(ref: '#/components/schemas/Error')),
             new OA\Response(response: 404, description: 'Product not found', content: new OA\JsonContent(ref: '#/components/schemas/Error'))
         ]
     )]
@@ -42,9 +40,7 @@ class ProductPaths
         requestBody: new OA\RequestBody(required: true, content: new OA\JsonContent(ref: '#/components/schemas/ProductInput')),
         responses: [
             new OA\Response(response: 201, description: 'The new product', content: new OA\JsonContent(ref: '#/components/schemas/Product')),
-            new OA\Response(response: 400, description: 'Invalid input or a broken rule', content: new OA\JsonContent(ref: '#/components/schemas/Error')),
-            new OA\Response(response: 401, description: 'Missing, invalid or expired token', content: new OA\JsonContent(ref: '#/components/schemas/Error')),
-            new OA\Response(response: 403, description: 'Admins only', content: new OA\JsonContent(ref: '#/components/schemas/Error'))
+            new OA\Response(response: 400, description: 'Invalid input or a broken rule', content: new OA\JsonContent(ref: '#/components/schemas/Error'))
         ]
     )]
     public function postProducts() {}
@@ -60,8 +56,6 @@ class ProductPaths
         responses: [
             new OA\Response(response: 200, description: 'The updated product', content: new OA\JsonContent(ref: '#/components/schemas/Product')),
             new OA\Response(response: 400, description: 'Invalid input or a broken rule', content: new OA\JsonContent(ref: '#/components/schemas/Error')),
-            new OA\Response(response: 401, description: 'Missing, invalid or expired token', content: new OA\JsonContent(ref: '#/components/schemas/Error')),
-            new OA\Response(response: 403, description: 'Admins only', content: new OA\JsonContent(ref: '#/components/schemas/Error')),
             new OA\Response(response: 404, description: 'Product not found', content: new OA\JsonContent(ref: '#/components/schemas/Error'))
         ]
     )]
@@ -77,8 +71,6 @@ class ProductPaths
         responses: [
             new OA\Response(response: 200, description: 'Product deleted', content: new OA\JsonContent(ref: '#/components/schemas/Message')),
             new OA\Response(response: 400, description: 'This product is part of orders', content: new OA\JsonContent(ref: '#/components/schemas/Error')),
-            new OA\Response(response: 401, description: 'Missing, invalid or expired token', content: new OA\JsonContent(ref: '#/components/schemas/Error')),
-            new OA\Response(response: 403, description: 'Admins only', content: new OA\JsonContent(ref: '#/components/schemas/Error')),
             new OA\Response(response: 404, description: 'Product not found', content: new OA\JsonContent(ref: '#/components/schemas/Error'))
         ]
     )]
@@ -93,7 +85,6 @@ class ProductPaths
         ],
         responses: [
             new OA\Response(response: 200, description: 'List of reviews', content: new OA\JsonContent(type: 'array', items: new OA\Items(ref: '#/components/schemas/ProductReview'))),
-            new OA\Response(response: 401, description: 'Missing, invalid or expired token', content: new OA\JsonContent(ref: '#/components/schemas/Error')),
             new OA\Response(response: 404, description: 'Product not found', content: new OA\JsonContent(ref: '#/components/schemas/Error'))
         ]
     )]

@@ -1,70 +1,21 @@
-<div class="d-flex justify-content-between align-items-center mb-4">
-  <h1 class="page-title mb-0" id="orders-title">My Orders</h1>
-  <button type="button" class="btn btn-specijal" id="new-order-btn">New order</button>
-</div>
+<h1 class="page-title mb-4">My Orders</h1>
 
 <div class="card p-3">
   <div class="table-responsive">
     <table class="table align-middle mb-0">
       <thead>
-        <tr>
-          <th>Order</th><th>Date</th><th class="d-none" id="orders-user-col">User</th>
-          <th>Status</th><th>Total</th><th class="text-end">Actions</th>
-        </tr>
+        <tr><th>Order</th><th>Date</th><th>Items</th><th>Status</th><th>Total</th></tr>
       </thead>
-      <tbody id="orders-list"></tbody>
+      <tbody>
+        <tr>
+          <td>#101</td><td>2026-10-12</td><td>2 x Vanilla Bean, 1 x Chocolate Fudge</td>
+          <td><span class="badge text-bg-success">Delivered</span></td><td>8.00 KM</td>
+        </tr>
+        <tr>
+          <td>#102</td><td>2026-10-18</td><td>3 x Strawberry Sorbet</td>
+          <td><span class="badge text-bg-warning">Pending</span></td><td>8.40 KM</td>
+        </tr>
+      </tbody>
     </table>
   </div>
 </div>
-
-<div class="modal fade" id="order-modal" tabindex="-1">
-  <div class="modal-dialog modal-lg">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="order-modal-title">Order</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
-      </div>
-      <div class="modal-body">
-        <div class="table-responsive">
-          <table class="table align-middle">
-            <thead><tr><th>Product</th><th>Quantity</th><th>Price</th><th>Subtotal</th><th></th></tr></thead>
-            <tbody id="order-items-list"></tbody>
-          </table>
-        </div>
-        <p class="text-end fw-bold">Total: <span id="order-total"></span></p>
-        <p class="text-muted d-none" id="order-closed-note">This order is finished and cannot be changed.</p>
-
-        <div id="order-add-box">
-          <form id="order-add-form" class="row g-2 align-items-end">
-            <div class="col-sm-6">
-              <label for="order-product" class="form-label">Product</label>
-              <select class="form-select" id="order-product" required></select>
-            </div>
-            <div class="col-sm-3">
-              <label for="order-quantity" class="form-label">Quantity</label>
-              <input type="number" class="form-control" id="order-quantity" min="1" max="100" value="1" required>
-            </div>
-            <div class="col-sm-3">
-              <button type="submit" class="btn btn-specijal w-100">Add</button>
-            </div>
-          </form>
-        </div>
-
-        <div class="d-none mt-3" id="order-status-box">
-          <label for="order-status" class="form-label">Status (admin)</label>
-          <div class="input-group">
-            <select class="form-select" id="order-status">
-              <option value="pending">pending</option>
-              <option value="preparing">preparing</option>
-              <option value="delivered">delivered</option>
-              <option value="cancelled">cancelled</option>
-            </select>
-            <button type="button" class="btn btn-outline-secondary" id="order-status-save">Save status</button>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
-
-<script>OrderService.init();</script>

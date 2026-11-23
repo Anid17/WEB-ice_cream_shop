@@ -17,28 +17,14 @@ class ReviewService extends BaseService
         $this->product_dao = $product_dao ?? new ProductDao();
     }
 
-    public function add($review, $current_user = null)
+    public function add($review)
     {
-        // The author is always the logged-in user (also for admins), never a value from the request
-        if ($current_user !== null) {
-            $review['user_id'] = $current_user['id'];
-        }
         return parent::add($this->empty_to_null($review, ['comment']));
     }
 
-    public function update($review, $id, $current_user = null)
+    public function update($review, $id)
     {
-        $existing = $this->get_by_id($id);
-        $this->check_owner($existing, $current_user);            // 403 if it is not yours
-        $review['user_id'] = $existing['user_id'];               // the author never changes
         return parent::update($this->empty_to_null($review, ['comment']), $id);
-    }
-
-    public function delete($id, $current_user = null)
-    {
-        $existing = $this->get_by_id($id);
-        $this->check_owner($existing, $current_user);
-        $this->dao->delete($id);
     }
 
     protected function validate($review, $id = null)

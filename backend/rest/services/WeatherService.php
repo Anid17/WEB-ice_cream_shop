@@ -1,7 +1,6 @@
 <?php
 require_once __DIR__ . '/../../config/config.php';
 require_once __DIR__ . '/../../utils/exceptions.php';
-require_once __DIR__ . '/../../utils/Logger.php';
 
 /**
  * External API service: current weather from Open-Meteo.
@@ -10,13 +9,12 @@ require_once __DIR__ . '/../../utils/Logger.php';
  */
 class WeatherService
 {
-
     const MESSAGES = [
-    'cold' => 'Cold day? Enjoy a cozy scoop of hot chocolate!',
-    'mild' => 'A lovely day for a classic vanilla scoop!',
-    'warm' => 'Warm weather calls for refreshing strawberry sorbet!',
-    'hot'  => 'Beat the heat with a refreshing fruity ice cream!',
-];
+        'cold' => 'Message for below 10°C (try out camomile, mint, or black tea flavors)',
+        'mild' => 'Message for 10°C to 19°C (try out vanilla, strawberry, or cherry milkshake)',
+        'warm' => 'Message for 20°C to 27°C (always a good time for ice cream)',
+        'hot'  => 'Message for 28°C and above (ICE CREAM TIME!)',
+    ];
 
     /** Short names for the WMO weather codes that Open-Meteo returns. */
     const DESCRIPTIONS = [
@@ -41,7 +39,6 @@ class WeatherService
         }
 
         $category = $this->category($temperature);
-        Logger::info('EXTERNAL API weather ok city=' . Config::WEATHER_CITY() . " temperature=$temperature");
         return [
             'city' => Config::WEATHER_CITY(),
             'temperature' => round((float) $temperature, 1),
@@ -110,7 +107,7 @@ class WeatherService
     /** Log the technical reason, give the user a friendly message (HTTP 503). */
     private function fail($reason)
     {
-        Logger::error('EXTERNAL API weather failed: ' . $reason);
+        error_log('[WeatherService] ' . $reason);
         throw new ExternalServiceException('Weather information is not available right now. Please try again later.');
     }
 }

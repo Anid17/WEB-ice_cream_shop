@@ -18,30 +18,8 @@ class OrderService extends BaseService
         $this->user_dao = $user_dao ?? new UserDao();
     }
 
-    /** A customer sees only their own order (403 for another one). */
-    public function get_by_id($id, $current_user = null)
+    public function add($order)
     {
-        $order = parent::get_by_id($id);
-        $this->check_owner($order, $current_user);
-        return $order;
-    }
-
-    /** Admin: all orders (or one user's orders). Customer: only their own, whatever user_id is sent. */
-    public function get_for_user($current_user, $user_id = null)
-    {
-        if ($current_user['role'] !== Roles::ADMIN) {
-            return $this->dao->get_by_user($current_user['id']);
-        }
-        return $user_id ? $this->get_by_user($user_id) : $this->dao->get_all();
-    }
-
-    public function add($order, $current_user = null)
-    {
-        // A customer always orders for themselves, and a new order is always pending
-        if ($current_user !== null && $current_user['role'] !== Roles::ADMIN) {
-            $order['user_id'] = $current_user['id'];
-            $order['status'] = 'pending';
-        }
         $order['status'] = $order['status'] ?? 'pending';
         // Rule: the total is calculated from the order items, the client cannot choose it
         $order['total_amount'] = 0;

@@ -7,10 +7,6 @@ class Config
     public static function DB_USER()     { return self::get_env('DB_USER', 'root'); }
     public static function DB_PASSWORD() { return self::get_env('DB_PASSWORD', ''); }
 
-    // Authentication (JWT). In config.php set your OWN long random secret (at least 32 characters).
-    public static function JWT_SECRET()     { return self::get_env('JWT_SECRET', 'change-me-to-a-long-random-string-of-at-least-32-characters'); }
-    public static function JWT_EXPIRATION() { return self::get_env('JWT_EXPIRATION', 60 * 60 * 24); }   // seconds (24 hours)
-
     // External API: Open-Meteo weather (free, it needs no API key).
     // If you switch to an API with a key, add it here, for example WEATHER_API_KEY.
     public static function WEATHER_API_URL()   { return self::get_env('WEATHER_API_URL', 'https://api.open-meteo.com/v1/forecast'); }

@@ -6,14 +6,13 @@ class OrderPaths
     #[OA\Get(
         path: '/orders',
         tags: ['orders'],
-        summary: 'List orders (admin: all or of one user; customer: only your own)',
+        summary: 'List orders (all, or of one user)',
         parameters: [
-            new OA\Parameter(name: 'user_id', in: 'query', required: false, description: 'Admins only: orders of this user. Ignored for customers.', example: 2, schema: new OA\Schema(type: 'integer'))
+            new OA\Parameter(name: 'user_id', in: 'query', required: false, description: 'Only orders of this user', example: 2, schema: new OA\Schema(type: 'integer'))
         ],
         responses: [
             new OA\Response(response: 200, description: 'List of orders', content: new OA\JsonContent(type: 'array', items: new OA\Items(ref: '#/components/schemas/Order'))),
             new OA\Response(response: 400, description: 'Invalid user_id', content: new OA\JsonContent(ref: '#/components/schemas/Error')),
-            new OA\Response(response: 401, description: 'Missing, invalid or expired token', content: new OA\JsonContent(ref: '#/components/schemas/Error')),
             new OA\Response(response: 404, description: 'User not found', content: new OA\JsonContent(ref: '#/components/schemas/Error'))
         ]
     )]
@@ -28,8 +27,6 @@ class OrderPaths
         ],
         responses: [
             new OA\Response(response: 200, description: 'The order', content: new OA\JsonContent(ref: '#/components/schemas/Order')),
-            new OA\Response(response: 401, description: 'Missing, invalid or expired token', content: new OA\JsonContent(ref: '#/components/schemas/Error')),
-            new OA\Response(response: 403, description: 'Not your order', content: new OA\JsonContent(ref: '#/components/schemas/Error')),
             new OA\Response(response: 404, description: 'Order not found', content: new OA\JsonContent(ref: '#/components/schemas/Error'))
         ]
     )]
@@ -42,8 +39,7 @@ class OrderPaths
         requestBody: new OA\RequestBody(required: true, content: new OA\JsonContent(ref: '#/components/schemas/OrderInput')),
         responses: [
             new OA\Response(response: 201, description: 'The new order', content: new OA\JsonContent(ref: '#/components/schemas/Order')),
-            new OA\Response(response: 400, description: 'Invalid input or a broken rule', content: new OA\JsonContent(ref: '#/components/schemas/Error')),
-            new OA\Response(response: 401, description: 'Missing, invalid or expired token', content: new OA\JsonContent(ref: '#/components/schemas/Error'))
+            new OA\Response(response: 400, description: 'Invalid input or a broken rule', content: new OA\JsonContent(ref: '#/components/schemas/Error'))
         ]
     )]
     public function postOrders() {}
@@ -59,8 +55,6 @@ class OrderPaths
         responses: [
             new OA\Response(response: 200, description: 'The updated order', content: new OA\JsonContent(ref: '#/components/schemas/Order')),
             new OA\Response(response: 400, description: 'Invalid input or a broken rule', content: new OA\JsonContent(ref: '#/components/schemas/Error')),
-            new OA\Response(response: 401, description: 'Missing, invalid or expired token', content: new OA\JsonContent(ref: '#/components/schemas/Error')),
-            new OA\Response(response: 403, description: 'Admins only', content: new OA\JsonContent(ref: '#/components/schemas/Error')),
             new OA\Response(response: 404, description: 'Order not found', content: new OA\JsonContent(ref: '#/components/schemas/Error'))
         ]
     )]
@@ -75,8 +69,6 @@ class OrderPaths
         ],
         responses: [
             new OA\Response(response: 200, description: 'Order deleted', content: new OA\JsonContent(ref: '#/components/schemas/Message')),
-            new OA\Response(response: 401, description: 'Missing, invalid or expired token', content: new OA\JsonContent(ref: '#/components/schemas/Error')),
-            new OA\Response(response: 403, description: 'Admins only', content: new OA\JsonContent(ref: '#/components/schemas/Error')),
             new OA\Response(response: 404, description: 'Order not found', content: new OA\JsonContent(ref: '#/components/schemas/Error'))
         ]
     )]
@@ -91,8 +83,6 @@ class OrderPaths
         ],
         responses: [
             new OA\Response(response: 200, description: 'List of order items', content: new OA\JsonContent(type: 'array', items: new OA\Items(ref: '#/components/schemas/OrderItemDetail'))),
-            new OA\Response(response: 401, description: 'Missing, invalid or expired token', content: new OA\JsonContent(ref: '#/components/schemas/Error')),
-            new OA\Response(response: 403, description: 'Not your order', content: new OA\JsonContent(ref: '#/components/schemas/Error')),
             new OA\Response(response: 404, description: 'Order not found', content: new OA\JsonContent(ref: '#/components/schemas/Error'))
         ]
     )]

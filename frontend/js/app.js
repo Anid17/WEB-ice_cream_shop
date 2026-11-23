@@ -2,6 +2,7 @@
 // Each view is fetched from /views the FIRST time it is visited,
 // then kept in the page and only shown/hidden afterwards.
 
+
 const routes = {
   dashboard: "views/dashboard.html",
   login: "views/login.html",
@@ -16,42 +17,32 @@ const routes = {
 };
 
 const defaultRoute = "home";
-const publicRoutes = ["home", "login", "register"];
-const loadedViews = {};
+const loadedViews = {}; 
 
 async function loadView(name) {
-    if (loadedViews[name]) loadedViews[name].remove();   // reload every time so init() fetches fresh data;
+  if (loadedViews[name]) return; 
 
   const section = document.createElement("section");
   section.id = "view-" + name;
   section.className = "d-none";
-  document.getElementById("app").appendChild(section);
-  loadedViews[name] = section;
 
   try {
     const response = await fetch(routes[name]);
     if (!response.ok) throw new Error("HTTP " + response.status);
-    $(section).html(await response.text());   // jQuery also runs the <script> inside the view
+    section.innerHTML = await response.text();
   } catch (error) {
-    section.innerHTML = '<div class="alert alert-danger">Could not load this page.</div>';
+    section.innerHTML =
+      '<div class="alert alert-danger">Could not load this page.</div>';
     console.error("View load failed:", name, error);
   }
+
+  document.getElementById("app").appendChild(section);
+  loadedViews[name] = section;
 }
 
 async function navigate() {
   let name = location.hash.replace("#", "");
   if (!routes[name]) name = defaultRoute;
-
-  // user experience only; the real protection is the 401/403 from the backend
-  if (!publicRoutes.includes(name) && !UserService.isLoggedIn()) {
-    window.location.hash = "#login";
-    return;
-  }
-  if (name === "admin" && UserService.getUser()?.role !== Constants.ADMIN_ROLE) {
-    toastr.error("You are not allowed to open this page.");
-    window.location.hash = "#dashboard";
-    return;
-  }
 
   await loadView(name);
 

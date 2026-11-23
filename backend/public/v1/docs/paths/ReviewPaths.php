@@ -8,8 +8,7 @@ class ReviewPaths
         tags: ['reviews'],
         summary: 'List all reviews',
         responses: [
-            new OA\Response(response: 200, description: 'List of reviews', content: new OA\JsonContent(type: 'array', items: new OA\Items(ref: '#/components/schemas/Review'))),
-            new OA\Response(response: 401, description: 'Missing, invalid or expired token', content: new OA\JsonContent(ref: '#/components/schemas/Error'))
+            new OA\Response(response: 200, description: 'List of reviews', content: new OA\JsonContent(type: 'array', items: new OA\Items(ref: '#/components/schemas/Review')))
         ]
     )]
     public function getReviews() {}
@@ -23,7 +22,6 @@ class ReviewPaths
         ],
         responses: [
             new OA\Response(response: 200, description: 'The review', content: new OA\JsonContent(ref: '#/components/schemas/Review')),
-            new OA\Response(response: 401, description: 'Missing, invalid or expired token', content: new OA\JsonContent(ref: '#/components/schemas/Error')),
             new OA\Response(response: 404, description: 'Review not found', content: new OA\JsonContent(ref: '#/components/schemas/Error'))
         ]
     )]
@@ -36,8 +34,7 @@ class ReviewPaths
         requestBody: new OA\RequestBody(required: true, content: new OA\JsonContent(ref: '#/components/schemas/ReviewInput')),
         responses: [
             new OA\Response(response: 201, description: 'The new review', content: new OA\JsonContent(ref: '#/components/schemas/Review')),
-            new OA\Response(response: 400, description: 'Invalid input or a broken rule', content: new OA\JsonContent(ref: '#/components/schemas/Error')),
-            new OA\Response(response: 401, description: 'Missing, invalid or expired token', content: new OA\JsonContent(ref: '#/components/schemas/Error'))
+            new OA\Response(response: 400, description: 'Invalid input or a broken rule', content: new OA\JsonContent(ref: '#/components/schemas/Error'))
         ]
     )]
     public function postReviews() {}
@@ -53,8 +50,6 @@ class ReviewPaths
         responses: [
             new OA\Response(response: 200, description: 'The updated review', content: new OA\JsonContent(ref: '#/components/schemas/Review')),
             new OA\Response(response: 400, description: 'Invalid input or a broken rule', content: new OA\JsonContent(ref: '#/components/schemas/Error')),
-            new OA\Response(response: 401, description: 'Missing, invalid or expired token', content: new OA\JsonContent(ref: '#/components/schemas/Error')),
-            new OA\Response(response: 403, description: 'Not your review', content: new OA\JsonContent(ref: '#/components/schemas/Error')),
             new OA\Response(response: 404, description: 'Review not found', content: new OA\JsonContent(ref: '#/components/schemas/Error'))
         ]
     )]
@@ -69,8 +64,6 @@ class ReviewPaths
         ],
         responses: [
             new OA\Response(response: 200, description: 'Review deleted', content: new OA\JsonContent(ref: '#/components/schemas/Message')),
-            new OA\Response(response: 401, description: 'Missing, invalid or expired token', content: new OA\JsonContent(ref: '#/components/schemas/Error')),
-            new OA\Response(response: 403, description: 'Not your review', content: new OA\JsonContent(ref: '#/components/schemas/Error')),
             new OA\Response(response: 404, description: 'Review not found', content: new OA\JsonContent(ref: '#/components/schemas/Error'))
         ]
     )]
