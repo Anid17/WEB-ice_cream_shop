@@ -8,7 +8,9 @@ class OrderItemPaths
         tags: ['order-items'],
         summary: 'List all order items',
         responses: [
-            new OA\Response(response: 200, description: 'List of order items', content: new OA\JsonContent(type: 'array', items: new OA\Items(ref: '#/components/schemas/OrderItem')))
+            new OA\Response(response: 200, description: 'List of order items', content: new OA\JsonContent(type: 'array', items: new OA\Items(ref: '#/components/schemas/OrderItem'))),
+            new OA\Response(response: 401, description: 'Missing, invalid or expired token', content: new OA\JsonContent(ref: '#/components/schemas/Error')),
+            new OA\Response(response: 403, description: 'Admins only', content: new OA\JsonContent(ref: '#/components/schemas/Error'))
         ]
     )]
     public function getOrderItems() {}
@@ -22,6 +24,8 @@ class OrderItemPaths
         ],
         responses: [
             new OA\Response(response: 200, description: 'The order item', content: new OA\JsonContent(ref: '#/components/schemas/OrderItem')),
+            new OA\Response(response: 401, description: 'Missing, invalid or expired token', content: new OA\JsonContent(ref: '#/components/schemas/Error')),
+            new OA\Response(response: 403, description: 'Not your order', content: new OA\JsonContent(ref: '#/components/schemas/Error')),
             new OA\Response(response: 404, description: 'Order item not found', content: new OA\JsonContent(ref: '#/components/schemas/Error'))
         ]
     )]
@@ -34,7 +38,9 @@ class OrderItemPaths
         requestBody: new OA\RequestBody(required: true, content: new OA\JsonContent(ref: '#/components/schemas/OrderItemInput')),
         responses: [
             new OA\Response(response: 201, description: 'The new order item', content: new OA\JsonContent(ref: '#/components/schemas/OrderItem')),
-            new OA\Response(response: 400, description: 'Invalid input or a broken rule', content: new OA\JsonContent(ref: '#/components/schemas/Error'))
+            new OA\Response(response: 400, description: 'Invalid input or a broken rule', content: new OA\JsonContent(ref: '#/components/schemas/Error')),
+            new OA\Response(response: 401, description: 'Missing, invalid or expired token', content: new OA\JsonContent(ref: '#/components/schemas/Error')),
+            new OA\Response(response: 403, description: 'Not your order', content: new OA\JsonContent(ref: '#/components/schemas/Error'))
         ]
     )]
     public function postOrderItems() {}
@@ -50,6 +56,8 @@ class OrderItemPaths
         responses: [
             new OA\Response(response: 200, description: 'The updated order item', content: new OA\JsonContent(ref: '#/components/schemas/OrderItem')),
             new OA\Response(response: 400, description: 'Invalid input or a broken rule', content: new OA\JsonContent(ref: '#/components/schemas/Error')),
+            new OA\Response(response: 401, description: 'Missing, invalid or expired token', content: new OA\JsonContent(ref: '#/components/schemas/Error')),
+            new OA\Response(response: 403, description: 'Not your order', content: new OA\JsonContent(ref: '#/components/schemas/Error')),
             new OA\Response(response: 404, description: 'Order item not found', content: new OA\JsonContent(ref: '#/components/schemas/Error'))
         ]
     )]
@@ -64,6 +72,9 @@ class OrderItemPaths
         ],
         responses: [
             new OA\Response(response: 200, description: 'Order item deleted', content: new OA\JsonContent(ref: '#/components/schemas/Message')),
+            new OA\Response(response: 400, description: 'The order is already finished', content: new OA\JsonContent(ref: '#/components/schemas/Error')),
+            new OA\Response(response: 401, description: 'Missing, invalid or expired token', content: new OA\JsonContent(ref: '#/components/schemas/Error')),
+            new OA\Response(response: 403, description: 'Not your order', content: new OA\JsonContent(ref: '#/components/schemas/Error')),
             new OA\Response(response: 404, description: 'Order item not found', content: new OA\JsonContent(ref: '#/components/schemas/Error'))
         ]
     )]

@@ -97,3 +97,4 @@
    (Claude) The Git instructions used a plain "git push", which failed with "no upstream branch", because milestone3 was not linked to GitHub yet. I used git push --set-upstream origin milestone3.
    
 
+   ## Milestone 4

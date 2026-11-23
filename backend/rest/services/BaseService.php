@@ -1,6 +1,7 @@
 <?php
 require_once __DIR__ . '/../../utils/exceptions.php';
 require_once __DIR__ . '/../../utils/Validator.php';
+require_once __DIR__ . '/../../utils/Roles.php';
 
 /**
  * BaseService: common business logic for every entity.
@@ -72,5 +73,20 @@ class BaseService
             }
         }
         return $entity;
+    }
+
+    /**
+     * Ownership check: is this object yours? Admins may access everything.
+     * $current_user = null means "no user" (used by tests), so nothing is checked.
+     * Always pass Flight::get('user') from the route!
+     */
+    protected function check_owner($entity, $current_user)
+    {
+        if ($current_user === null || $current_user['role'] === Roles::ADMIN) {
+            return;
+        }
+        if ((int) $entity['user_id'] !== (int) $current_user['id']) {
+            throw new ForbiddenException('You can only access your own ' . strtolower($this->entity_name) . 's.');
+        }
     }
 }

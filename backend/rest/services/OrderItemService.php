@@ -17,17 +17,25 @@ class OrderItemService extends BaseService
         $this->product_dao = $product_dao ?? new ProductDao();
     }
 
+    /** An item belongs to the user who owns its order. */
+    public function get_by_id($id, $current_user = null)
+    {
+        $item = parent::get_by_id($id);
+        $this->check_owner($this->order_dao->get_by_id($item['order_id']), $current_user);
+        return $item;
+    }
+
     /**
      * Add a product to an order. Rules:
-     * - the order must still be open (pending or preparing)
+     * - the order must be yours (403) and still open (pending or preparing)
      * - there must be enough stock
      * - the unit price is taken from the product, never from the request
      * - the item, the stock and the order total change together (transaction)
      */
-    public function add($item)
+    public function add($item, $current_user = null)
     {
         $this->validate($item);
-        $order = $this->open_order($item['order_id']);
+        $order = $this->open_order($item['order_id'], $current_user);
         $product = $this->product_dao->get_by_id($item['product_id']);
         if ($product['stock'] < $item['quantity']) {
             throw new ValidationException("Only {$product['stock']} of '{$product['name']}' left in stock.");
@@ -48,12 +56,12 @@ class OrderItemService extends BaseService
     }
 
     /** Only the quantity of an item can be changed. */
-    public function update($item, $id)
+    public function update($item, $id, $current_user = null)
     {
         $current = $this->get_by_id($id);
+        $order = $this->open_order($current['order_id'], $current_user);
         Validator::required($item, ['quantity']);
         Validator::integer($item['quantity'], 'quantity', 1, 100);
-        $order = $this->open_order($current['order_id']);
         $product = $this->product_dao->get_by_id($current['product_id']);
 
         $delta = (int) $item['quantity'] - (int) $current['quantity'];
@@ -74,10 +82,10 @@ class OrderItemService extends BaseService
     }
 
     /** Removing an item gives the stock back and lowers the order total. */
-    public function delete($id)
+    public function delete($id, $current_user = null)
     {
         $current = $this->get_by_id($id);
-        $order = $this->open_order($current['order_id']);
+        $order = $this->open_order($current['order_id'], $current_user);
         $product = $this->product_dao->get_by_id($current['product_id']);
 
         $this->dao->begin_transaction();
@@ -106,12 +114,14 @@ class OrderItemService extends BaseService
         }
     }
 
-    private function open_order($order_id)
+    /** The order must exist, belong to the user (403) and not be finished (400). */
+    private function open_order($order_id, $current_user = null)
     {
         $order = $this->order_dao->get_by_id($order_id);
         if (!$order) {
             throw new ValidationException("The selected order does not exist.");
         }
+        $this->check_owner($order, $current_user);
         if (in_array($order['status'], OrderService::FINISHED, true)) {
             throw new ValidationException("A {$order['status']} order cannot be changed.");
         }
@@ -130,12 +140,14 @@ class OrderItemService extends BaseService
         }
     }
 
-    /** Items of one order (404 if the order does not exist). */
-    public function get_by_order($order_id)
+    /** Items of one order (404 if the order does not exist, 403 if it is not yours). */
+    public function get_by_order($order_id, $current_user = null)
     {
-        if (!$this->order_dao->get_by_id($order_id)) {
+        $order = $this->order_dao->get_by_id($order_id);
+        if (!$order) {
             throw new NotFoundException("Order not found.");
         }
+        $this->check_owner($order, $current_user);
         return $this->dao->get_by_order($order_id);
     }
 }

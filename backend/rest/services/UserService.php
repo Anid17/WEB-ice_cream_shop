@@ -64,8 +64,12 @@ class UserService extends BaseService
     }
 
     /** Rule: a user who has orders cannot be deleted. */
-    public function delete($id)
+    public function delete($id, $current_user = null) 
     {
+        // Rule: nobody can delete their own account (an admin could lock everybody out)
+        if ($current_user !== null && (int) $current_user['id'] === (int) $id) {
+            throw new ForbiddenException('You cannot delete your own account.');
+        }
         $this->get_by_id($id);
         $orders = count($this->order_dao->get_by_user($id));
         if ($orders > 0) {

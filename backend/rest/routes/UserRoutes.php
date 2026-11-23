@@ -1,24 +1,24 @@
 <?php
 Flight::route('GET /users', function () {
     Flight::json(Flight::user_service()->get_all());
-});
+})->addMiddleware(new RoleMiddleware([Roles::ADMIN]));
 
 Flight::route('GET /users/@id:[0-9]+', function ($id) {
     Flight::json(Flight::user_service()->get_by_id($id));
-});
+})->addMiddleware(new RoleMiddleware([Roles::ADMIN]));
 
-/** Body: { "name": "Ema Kovac", "email": "ema@example.com", "password": "Secret123" } */
+/** Body: { "name": "Ema Kovac", "email": "ema@example.com", "password": "Secret123", "role": "customer" } */
 Flight::route('POST /users', function () {
     $data = Flight::request()->data->getData();
     Flight::json(Flight::user_service()->add($data), 201);
-});
+})->addMiddleware(new RoleMiddleware([Roles::ADMIN]));
 
 Flight::route('PUT /users/@id:[0-9]+', function ($id) {
     $data = Flight::request()->data->getData();
     Flight::json(Flight::user_service()->update($data, $id));
-});
+})->addMiddleware(new RoleMiddleware([Roles::ADMIN]));
 
 Flight::route('DELETE /users/@id:[0-9]+', function ($id) {
-    Flight::user_service()->delete($id);
+    Flight::user_service()->delete($id, Flight::get('user'));
     Flight::json(['message' => 'User deleted.']);
-});
+})->addMiddleware(new RoleMiddleware([Roles::ADMIN]));
